@@ -5,9 +5,8 @@
 - [ ] **Recommendation Engine**:
     - [ ] Match users to groups based on `interests`.
     - [ ] Simple scoring: +1 for matching interest, +1 for same location.
-- [ ] **Rating System**:
-    - [ ] POST `/ratings/` to limit bad actors.
-    - [ ] Simple average score calculation on User profile.
+- [v] **Rating System**:
+    - [v] like unlike functionality
 
 ## UX / API Improvements
 - [ ] **Activity List**: Endpoint to get list of valid activities (Badminton, Basketball, etc.) to ensure consistent data.
