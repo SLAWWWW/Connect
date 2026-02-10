@@ -62,3 +62,49 @@ def join_group(
     storage.update_item("groups", group_id, {"members": group_data["members"]})
     
     return group_data
+
+@router.post("/{group_id}/leave", response_model=Group)
+def leave_group(
+    group_id: str,
+    x_user_id: str = Header(..., description="User ID of the user leaving")
+):
+    """
+    Leave a group.
+    """
+    group_data = storage.get_item_by_id("groups", group_id)
+    if not group_data:
+        raise HTTPException(status_code=404, detail="Group not found")
+    
+    user = storage.get_item_by_id("users", x_user_id)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    # Check if already a member
+    if x_user_id not in group_data["members"]:
+        raise HTTPException(status_code=400, detail="User not in group")
+    
+    # Check if admin
+    if group_data["admin_id"] == x_user_id:
+        raise HTTPException(status_code=400, detail="Admin cannot leave group")
+    
+    group_data["members"].remove(x_user_id)
+    storage.update_item("groups", group_id, {"members": group_data["members"]})
+    
+    return group_data
+
+@router.get("/groups_lf", response_model=List[Group])
+def read_groups_lf(
+    skip: int = 0,
+    limit: int = 100,
+    x_user_id: str = Header(..., description="User ID of the user")
+):
+    """
+    Get groups that are looking for members.
+    """
+    groups = storage.get_all("groups")[skip : skip + limit]
+    groups_lf = []
+    for group in groups:
+        if len(group["members"]) < group["max_members"]:
+            groups_lf.append(group)
+
+    return groups_lf
