@@ -1,0 +1,105 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-rajdhani: "Rajdhani", sans-serif;
+  
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+}
+
+:root {
+  /* Default to Dark Mode variables since that's the main requirement */
+  --radius: 0.5rem;
+  
+  /* Deep Navy/Charcoal Background */
+  --background: oklch(0.15 0.05 260); 
+  --foreground: oklch(0.95 0.02 260);
+
+  /* Glass Card - Semi-transparent dark blue/grey */
+  --card: oklch(0.2 0.05 260 / 0.4);
+  --card-foreground: oklch(0.95 0.02 260);
+
+  --popover: oklch(0.15 0.05 260);
+  --popover-foreground: oklch(0.98 0 0);
+
+  /* Electric Cyan #00CCFF */
+  --primary: oklch(0.78 0.18 230);
+  --primary-foreground: oklch(0.1 0.05 260);
+
+  /* Glowing Orange */
+  --secondary: oklch(0.7 0.2 45);
+  --secondary-foreground: oklch(0.98 0 0);
+
+  --muted: oklch(0.25 0.05 260);
+  --muted-foreground: oklch(0.7 0.05 260);
+
+  --accent: oklch(0.25 0.05 260);
+  --accent-foreground: oklch(0.98 0 0);
+
+  --destructive: oklch(0.6 0.2 20);
+  --destructive-foreground: oklch(0.98 0 0);
+
+  /* Thin, subtle borders */
+  --border: oklch(0.8 0.1 230 / 0.2);
+  --input: oklch(0.8 0.1 230 / 0.1);
+  --ring: oklch(0.78 0.18 230);
+}
+
+.dark {
+  /* Same as root for now since it's a dark-only app essentially */
+  --background: oklch(0.15 0.05 260);
+  --foreground: oklch(0.95 0.02 260);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-rajdhani selection:bg-primary selection:text-primary-foreground;
+    background-image: radial-gradient(circle at 50% 50%, oklch(0.2 0.08 260), oklch(0.12 0.04 260));
+  }
+}
+
+@layer components {
+  .glass-panel {
+    @apply bg-card backdrop-blur-[15px] border border-border/30 shadow-[0_8px_32px_0_rgba(0,0,0,0.36)];
+  }
+  
+  .glass-input {
+    @apply bg-input/20 border-border/20 backdrop-blur-sm text-foreground placeholder:text-muted-foreground focus:border-primary/50 transition-colors;
+  }
+
+  .text-glow {
+    text-shadow: 0 0 10px var(--color-primary);
+  }
+  
+  .border-glow {
+    box-shadow: 0 0 15px -3px var(--color-primary);
+  }
+}
