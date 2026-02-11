@@ -140,38 +140,44 @@ export default function SidebarLeft() {
 
   if (!user) return <div className="w-80 h-[85vh] flex items-center justify-center glass-panel"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div></div>;
 
+  // Assuming allInterests is derived from user.interests or a global list
+  // If allInterests is not defined elsewhere, this will cause an error.
+  // For the purpose of this edit, we'll assume it's available or the user will define it.
+  const allInterests = user.interests || [];
+
   return (
     <div className="w-80 flex flex-col gap-4 z-10 pointer-events-auto h-[85vh] overflow-hidden">
       {/* Profile Card */}
-      <Card className="glass-panel border-none text-foreground shrink-0">
-        <CardHeader className="pb-2">
-          <CardTitle className="text-lg tracking-wider font-bold text-primary uppercase flex items-center gap-2">
-            My Profile
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="flex items-center gap-4 mb-4">
-            <Avatar className="h-12 w-12 border-2 border-primary ring-2 ring-primary/20">
-              <AvatarFallback className="bg-muted text-muted-foreground">
-                <UserIcon className="h-6 w-6" />
-              </AvatarFallback>
-            </Avatar >
-            <div>
-              <div className="font-bold text-lg">{user.name}</div>
-              <div className="text-xs text-muted-foreground uppercase tracking-widest">{user.location}</div>
+      <Link href={`/profile/${DEMO_USER_ID}`}>
+        <Card className="glass-panel border-none text-foreground shrink-0 cursor-pointer hover:border-primary/30 transition-colors">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-lg tracking-wider font-bold text-primary uppercase flex items-center gap-2">
+              My Profile
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex items-center gap-4 mb-4">
+              <Avatar className="h-12 w-12 border-2 border-primary ring-2 ring-primary/20">
+                <AvatarFallback className="bg-muted text-muted-foreground">
+                  <UserIcon className="h-6 w-6" />
+                </AvatarFallback>
+              </Avatar >
+              <div>
+                <div className="font-bold text-lg">{user.name}</div>
+                <div className="text-xs text-muted-foreground">{user.location}</div>
+              </div>
             </div>
-          </div >
-
-          <div className="space-y-2">
-            <div className="text-xs font-semibold text-muted-foreground uppercase">Interests</div>
-            <div className="flex flex-wrap gap-2">
-              {(user.interests || []).map((tag) => {
-                const isSelected = selectedInterests.includes(tag);
+            <div className="flex flex-wrap gap-1.5 mb-1">
+              {allInterests.slice(0, 4).map((tag) => {
                 return (
                   <Badge
                     key={tag}
-                    onClick={() => toggleInterest(tag)}
-                    className={`cursor-pointer transition-all border ${isSelected
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      e.preventDefault();
+                      toggleInterest(tag);
+                    }}
+                    className={`text-[10px] cursor-pointer transition-all ${selectedInterests.includes(tag)
                       ? "bg-primary text-primary-foreground border-primary hover:bg-primary/90"
                       : "bg-primary/10 text-primary border-primary/20 hover:bg-primary/20"
                       }`}
@@ -181,9 +187,9 @@ export default function SidebarLeft() {
                 );
               })}
             </div>
-          </div>
-        </CardContent >
-      </Card >
+          </CardContent>
+        </Card >
+      </Link>
 
       {/* Community Members */}
       < Card className="glass-panel border-none text-foreground flex-1 flex flex-col min-h-0 overflow-hidden" >

@@ -26,7 +26,7 @@
                 "Cooking",
                 "Tech"
             ],
-            "location": "San Francisco, CA",
+            "location": "Orchard",
             "id": "user-001",
             "liked_by": [
                 "community-compass-demo-user"
@@ -42,7 +42,7 @@
                 "Reading",
                 "Hiking"
             ],
-            "location": "Austin, TX",
+            "location": "Tampines",
             "id": "user-002",
             "liked_by": []
         },
@@ -56,7 +56,7 @@
                 "Coffee",
                 "Anime"
             ],
-            "location": "Seattle, WA",
+            "location": "Bugis",
             "id": "user-003",
             "liked_by": [
                 "community-compass-demo-user",
@@ -73,7 +73,7 @@
                 "Fashion",
                 "Art"
             ],
-            "location": "New York, NY",
+            "location": "Marina Bay",
             "id": "user-004",
             "liked_by": []
         },
@@ -87,7 +87,7 @@
                 "Cycling",
                 "Hiking"
             ],
-            "location": "Denver, CO",
+            "location": "Sentosa",
             "id": "user-005",
             "liked_by": [
                 "community-compass-demo-user"
@@ -103,7 +103,7 @@
                 "Music",
                 "Wine"
             ],
-            "location": "Portland, OR",
+            "location": "Clarke Quay",
             "id": "user-006",
             "liked_by": []
         },
@@ -117,7 +117,7 @@
                 "Chess",
                 "Sci-Fi"
             ],
-            "location": "Boston, MA",
+            "location": "Jurong East",
             "id": "user-007",
             "liked_by": [
                 "user-003",
@@ -134,7 +134,7 @@
                 "Yoga",
                 "Podcasts"
             ],
-            "location": "Miami, FL",
+            "location": "East Coast",
             "id": "user-008",
             "liked_by": []
         },
@@ -148,7 +148,7 @@
                 "Photography",
                 "Travel"
             ],
-            "location": "San Diego, CA",
+            "location": "Pasir Ris",
             "id": "user-009",
             "liked_by": [
                 "community-compass-demo-user"
@@ -164,7 +164,7 @@
                 "Indie Music",
                 "Vintage"
             ],
-            "location": "Brooklyn, NY",
+            "location": "Tiong Bahru",
             "id": "user-010",
             "liked_by": []
         },
@@ -178,7 +178,7 @@
                 "Beer",
                 "BBQ"
             ],
-            "location": "Nashville, TN",
+            "location": "Punggol",
             "id": "user-011",
             "liked_by": [
                 "user-002"
@@ -194,7 +194,7 @@
                 "Coffee",
                 "Cats"
             ],
-            "location": "Chicago, IL",
+            "location": "Holland Village",
             "id": "user-012",
             "liked_by": []
         },
@@ -208,7 +208,7 @@
                 "Technology",
                 "Startups"
             ],
-            "location": "San Francisco, CA",
+            "location": "Orchard",
             "id": "user-013",
             "liked_by": [
                 "community-compass-demo-user",
@@ -225,7 +225,7 @@
                 "Traveling",
                 "Baking"
             ],
-            "location": "Philadelphia, PA",
+            "location": "Tanjong Pagar",
             "id": "user-014",
             "liked_by": []
         },
@@ -239,7 +239,7 @@
                 "Philosophy",
                 "Health"
             ],
-            "location": "Los Angeles, CA",
+            "location": "Ang Mo Kio",
             "id": "user-015",
             "liked_by": [
                 "user-008"
@@ -255,7 +255,7 @@
                 "Hiking",
                 "Dogs"
             ],
-            "location": "Seattle, WA",
+            "location": "Woodlands",
             "id": "user-016",
             "liked_by": []
         },
@@ -269,7 +269,7 @@
                 "Engineering",
                 "Drones"
             ],
-            "location": "Detroit, MI",
+            "location": "Changi",
             "id": "user-017",
             "liked_by": [
                 "community-compass-demo-user"
@@ -285,7 +285,7 @@
                 "Fashion",
                 "Social Media"
             ],
-            "location": "Los Angeles, CA",
+            "location": "Somerset",
             "id": "user-018",
             "liked_by": []
         },
@@ -299,7 +299,7 @@
                 "Concerts",
                 "Craft Beer"
             ],
-            "location": "Austin, TX",
+            "location": "Dhoby Ghaut",
             "id": "user-019",
             "liked_by": [
                 "user-006",
@@ -316,21 +316,21 @@
                 "Hiking",
                 "Wildlife"
             ],
-            "location": "Denver, CO",
+            "location": "Bukit Timah",
             "id": "user-020",
             "liked_by": []
         }
     ],
     "groups": [
         {
-            "name": "SF Bay Area Hikers",
-            "description": "Weekend hiking adventures in the beautiful Bay Area trails. All skill levels welcome!",
+            "name": "Singapore Hikers",
+            "description": "Weekend hiking adventures at MacRitchie, Bukit Timah, and Southern Ridges. All skill levels welcome!",
             "activity": [
                 "Hiking",
                 "Nature",
                 "Outdoor"
             ],
-            "location": "San Francisco, CA",
+            "location": "Bukit Timah",
             "max_members": 15,
             "age_group": "18-35",
             "id": "group-001",
@@ -343,14 +343,14 @@
             "admin_id": "user-001"
         },
         {
-            "name": "NYC Coffee Enthusiasts",
-            "description": "Exploring the best coffee shops in New York City, one espresso at a time.",
+            "name": "Coffee Enthusiasts SG",
+            "description": "Exploring the best specialty coffee shops in Singapore, one espresso at a time.",
             "activity": [
                 "Coffee",
                 "Social",
                 "Food & Drink"
             ],
-            "location": "New York, NY",
+            "location": "Tiong Bahru",
             "max_members": 12,
             "age_group": "All Ages",
             "id": "group-002",
@@ -363,13 +363,13 @@
         },
         {
             "name": "Beach Volleyball Squad",
-            "description": "Play volleyball every weekend at the beach. Competitive but friendly!",
+            "description": "Play volleyball every weekend at Sentosa or East Coast. Competitive but friendly!",
             "activity": [
                 "Beach Volleyball",
                 "Sports",
                 "Fitness"
             ],
-            "location": "San Diego, CA",
+            "location": "Sentosa",
             "max_members": 10,
             "age_group": "18-35",
             "id": "group-003",
@@ -388,7 +388,7 @@
                 "Tech",
                 "Learning"
             ],
-            "location": "Seattle, WA",
+            "location": "Bugis",
             "max_members": 20,
             "age_group": "All Ages",
             "id": "group-004",
@@ -401,14 +401,14 @@
             "admin_id": "user-007"
         },
         {
-            "name": "Urban Photography Collective",
-            "description": "Capturing the beauty of city life through our lenses.",
+            "name": "Urban Photography SG",
+            "description": "Capturing the beauty of Singapore's skyline and streets through our lenses.",
             "activity": [
                 "Photography",
                 "Art",
                 "Urban"
             ],
-            "location": "Brooklyn, NY",
+            "location": "Marina Bay",
             "max_members": 12,
             "age_group": "All Ages",
             "id": "group-005",
@@ -422,13 +422,13 @@
         },
         {
             "name": "Yoga in the Park",
-            "description": "Free outdoor yoga sessions every Sunday morning. Namaste!",
+            "description": "Free outdoor yoga sessions every Sunday morning at Botanic Gardens. Namaste!",
             "activity": [
                 "Yoga",
                 "Wellness",
                 "Outdoor"
             ],
-            "location": "Austin, TX",
+            "location": "Botanic Gardens",
             "max_members": 25,
             "age_group": "All Ages",
             "id": "group-006",
@@ -441,13 +441,13 @@
         },
         {
             "name": "Board Game Nights",
-            "description": "Weekly board game meetups. From Catan to Pandemic, we play it all!",
+            "description": "Weekly board game meetups at cafes. From Catan to Pandemic, we play it all!",
             "activity": [
                 "Gaming",
                 "Social",
                 "Indoor"
             ],
-            "location": "Portland, OR",
+            "location": "Clarke Quay",
             "max_members": 15,
             "age_group": "18-40",
             "id": "group-007",
@@ -459,14 +459,14 @@
             "admin_id": "user-006"
         },
         {
-            "name": "Trail Runners Club",
-            "description": "Running through scenic trails. Various distances to accommodate all levels.",
+            "name": "Trail Runners SG",
+            "description": "Running through MacRitchie and Bukit Timah trails. Various distances to accommodate all levels.",
             "activity": [
                 "Running",
                 "Fitness",
                 "Outdoor"
             ],
-            "location": "Denver, CO",
+            "location": "MacRitchie",
             "max_members": 18,
             "age_group": "18-45",
             "id": "group-008",
@@ -479,13 +479,13 @@
         },
         {
             "name": "Indie Music Lovers",
-            "description": "Discovering new indie artists and attending local shows together.",
+            "description": "Discovering new indie artists and attending local gigs at The Substation and Esplanade.",
             "activity": [
                 "Music",
                 "Concerts",
                 "Social"
             ],
-            "location": "Austin, TX",
+            "location": "Esplanade",
             "max_members": 20,
             "age_group": "18-35",
             "id": "group-009",
@@ -498,14 +498,14 @@
             "admin_id": "user-019"
         },
         {
-            "name": "Sustainability Warriors",
-            "description": "Making our city greener one action at a time. Join our cleanup drives!",
+            "name": "Green Singapore",
+            "description": "Making Singapore greener one action at a time. Join our cleanup drives and tree planting!",
             "activity": [
                 "Environment",
                 "Volunteering",
                 "Community"
             ],
-            "location": "Seattle, WA",
+            "location": "Punggol",
             "max_members": 30,
             "age_group": "All Ages",
             "id": "group-010",
@@ -517,14 +517,14 @@
             "admin_id": "user-016"
         },
         {
-            "name": "Rock Climbing Adventures",
-            "description": "Indoor and outdoor climbing sessions for climbers of all skill levels.",
+            "name": "Rock Climbing SG",
+            "description": "Indoor climbing at Climb Central and outdoor bouldering sessions for all skill levels.",
             "activity": [
                 "Rock Climbing",
                 "Sports",
                 "Adventure"
             ],
-            "location": "Denver, CO",
+            "location": "Kallang",
             "max_members": 12,
             "age_group": "18-40",
             "id": "group-011",
@@ -536,14 +536,14 @@
             "admin_id": "user-005"
         },
         {
-            "name": "Bookworms United",
-            "description": "Monthly book club discussing contemporary fiction and classics.",
+            "name": "Bookworms SG",
+            "description": "Monthly book club at BooksActually discussing contemporary fiction and classics.",
             "activity": [
                 "Reading",
                 "Books",
                 "Discussion"
             ],
-            "location": "Chicago, IL",
+            "location": "Tiong Bahru",
             "max_members": 15,
             "age_group": "All Ages",
             "id": "group-012",
@@ -556,13 +556,13 @@
         },
         {
             "name": "Sunset Photography Walks",
-            "description": "Capturing golden hour magic on weekly photo walks around the city.",
+            "description": "Capturing golden hour magic on weekly photo walks at Marina Barrage and Gardens by the Bay.",
             "activity": [
                 "Photography",
                 "Walking",
                 "Nature"
             ],
-            "location": "San Francisco, CA",
+            "location": "Marina Barrage",
             "max_members": 10,
             "age_group": "All Ages",
             "id": "group-013",
@@ -574,14 +574,14 @@
             "admin_id": "community-compass-demo-user"
         },
         {
-            "name": "Craft Beer Tasting Club",
-            "description": "Exploring local breweries and tasting unique craft beers.",
+            "name": "Craft Beer Tasting SG",
+            "description": "Exploring local breweries and tasting unique craft beers from Brewerkz to Little Island.",
             "activity": [
                 "Beer",
                 "Food & Drink",
                 "Social"
             ],
-            "location": "Nashville, TN",
+            "location": "Tanjong Pagar",
             "max_members": 12,
             "age_group": "21+",
             "id": "group-014",
@@ -593,13 +593,13 @@
         },
         {
             "name": "Morning Meditation Circle",
-            "description": "Start your day with peace. Guided meditation every weekday morning.",
+            "description": "Start your day with peace. Guided meditation every weekday morning at Fort Canning.",
             "activity": [
                 "Meditation",
                 "Wellness",
                 "Mindfulness"
             ],
-            "location": "Los Angeles, CA",
+            "location": "Fort Canning",
             "max_members": 20,
             "age_group": "All Ages",
             "id": "group-015",
@@ -611,14 +611,14 @@
             "admin_id": "user-015"
         },
         {
-            "name": "Tech Startup Founders",
+            "name": "Tech Startup Founders SG",
             "description": "Network of entrepreneurs building the next big thing. Share ideas and challenges.",
             "activity": [
                 "Startups",
                 "Tech",
                 "Networking"
             ],
-            "location": "San Francisco, CA",
+            "location": "One-North",
             "max_members": 25,
             "age_group": "25-45",
             "id": "group-016",
@@ -632,13 +632,13 @@
         },
         {
             "name": "Weekend BBQ Masters",
-            "description": "Perfecting the art of BBQ and grilling. From brisket to ribs!",
+            "description": "Perfecting the art of BBQ and grilling at East Coast Park. From satay to ribs!",
             "activity": [
                 "BBQ",
                 "Cooking",
                 "Food"
             ],
-            "location": "Nashville, TN",
+            "location": "East Coast",
             "max_members": 15,
             "age_group": "All Ages",
             "id": "group-017",
@@ -650,13 +650,13 @@
         },
         {
             "name": "Dog Park Regulars",
-            "description": "Our dogs are best friends, so we should be too! Weekend dog park meetups.",
+            "description": "Our dogs are best friends, so we should be too! Weekend dog park meetups at Bishan.",
             "activity": [
                 "Dogs",
                 "Pets",
                 "Outdoor"
             ],
-            "location": "Seattle, WA",
+            "location": "Bishan-Ang Mo Kio Park",
             "max_members": 20,
             "age_group": "All Ages",
             "id": "group-018",
@@ -667,14 +667,14 @@
             "admin_id": "user-016"
         },
         {
-            "name": "Dance Fitness Crew",
-            "description": "High-energy dance workouts that don't feel like exercise!",
+            "name": "Dance Fitness SG",
+            "description": "High-energy Zumba and dance workouts that don't feel like exercise!",
             "activity": [
                 "Dance",
                 "Fitness",
                 "Music"
             ],
-            "location": "Miami, FL",
+            "location": "Orchard",
             "max_members": 18,
             "age_group": "18-40",
             "id": "group-019",
@@ -687,13 +687,13 @@
         },
         {
             "name": "Film & Discussion Society",
-            "description": "Weekly movie screenings followed by thoughtful discussions.",
+            "description": "Weekly indie film screenings at The Projector followed by thoughtful discussions.",
             "activity": [
                 "Movies",
                 "Film",
                 "Discussion"
             ],
-            "location": "Los Angeles, CA",
+            "location": "Golden Mile Tower",
             "max_members": 16,
             "age_group": "All Ages",
             "id": "group-020",

@@ -13,16 +13,43 @@ const NODE_RADIUS = 0.04;
 const NODE_HIT_RADIUS = 0.13; // larger hover range to avoid flicker
 const NODE_HOVER_SCALE = 1.8;
 
+// Helper function to interpolate color from green to red based on score (0-1)
+function getScoreColor(score: number): string {
+  // Clamp score between 0 and 1
+  const clampedScore = Math.max(0, Math.min(1, score));
+
+  // Green (high match) to Yellow to Red (low match)
+  // Green: rgb(34, 197, 94) - #22c55e
+  // Yellow: rgb(234, 179, 8) - #eab308
+  // Red: rgb(239, 68, 68) - #ef4444
+
+  if (clampedScore > 0.5) {
+    // Interpolate from yellow to green (score 0.5 to 1.0)
+    const t = (clampedScore - 0.5) * 2; // normalize to 0-1, where 0=yellow, 1=green
+    const r = Math.round(234 + (34 - 234) * t);
+    const g = Math.round(179 + (197 - 179) * t);
+    const b = Math.round(8 + (94 - 8) * t);
+    return `rgb(${r}, ${g}, ${b})`;
+  } else {
+    // Interpolate from red to yellow (score 0 to 0.5)
+    const t = clampedScore * 2; // normalize to 0-1, where 0=red, 1=yellow
+    const r = Math.round(239 + (234 - 239) * t);
+    const g = Math.round(68 + (179 - 68) * t);
+    const b = Math.round(68 + (8 - 68) * t);
+    return `rgb(${r}, ${g}, ${b})`;
+  }
+}
+
 function Nodes({
   groups,
-  recommendedGroupIds,
+  recommendedGroups,
   hoveredNodeIndex,
   setHoveredNodeIndex,
   isDraggingRef,
   onNodeClick,
 }: {
   groups: Group[];
-  recommendedGroupIds: Set<string>;
+  recommendedGroups: GroupRecommendation[];
   hoveredNodeIndex: number | null;
   setHoveredNodeIndex: (i: number | null) => void;
   isDraggingRef: React.MutableRefObject<boolean>;
@@ -57,6 +84,16 @@ function Nodes({
     () => groups.filter((g) => g.members.length < g.max_members),
     [groups]
   );
+
+  // Create a map of group ID to match score
+  const groupScores = useMemo(() => {
+    const scoreMap = new Map<string, number>();
+    recommendedGroups.forEach(rec => {
+      scoreMap.set(rec.id, rec.relevance_score ?? 0);
+    });
+    return scoreMap;
+  }, [recommendedGroups]);
+
   const groupPerNode = useMemo(() => {
     if (liveGroups.length === 0) return () => null as Group | null;
     const shuffled = [...liveGroups].sort(() => Math.random() - 0.5);
@@ -132,8 +169,8 @@ function Nodes({
       {/* Nodes — larger invisible hover target + visual dot */}
       {points.map((point, i) => {
         const assigned = groupPerNode(i);
-        const isRecommended = assigned ? recommendedGroupIds.has(assigned.id) : false;
-        const dotColor = isRecommended ? '#FF8800' : '#00CCFF';
+        const matchScore = assigned ? (groupScores.get(assigned.id) ?? 0) : 0;
+        const dotColor = getScoreColor(matchScore);
         const isHovered = hoveredNodeIndex === i;
         return (
           <group key={i} position={point}>
@@ -206,7 +243,7 @@ export default function Globe({ onNodeClick }: { onNodeClick?: (group: Group | n
   const [groups, setGroups] = useState<Group[]>([]);
   const [hoveredNodeIndex, setHoveredNodeIndex] = useState<number | null>(null);
   const isDraggingRef = useRef(false);
-  const [recommendedGroupIds, setRecommendedGroupIds] = useState<Set<string>>(new Set());
+  const [recommendedGroups, setRecommendedGroups] = useState<GroupRecommendation[]>([]);
 
   useEffect(() => {
     const load = async () => {
@@ -216,16 +253,13 @@ export default function Globe({ onNodeClick }: { onNodeClick?: (group: Group | n
           api.get<GroupRecommendation[]>('/api/v1/groups/recommended', { params: { limit: 12 } }),
         ]);
         setGroups(groupsRes.data ?? []);
-        const ids = new Set<string>(
-          (recRes.data ?? [])
-            .slice()
-            .sort((a, b) => (b.relevance_score ?? 0) - (a.relevance_score ?? 0))
-            .map((g) => g.id)
-        );
-        setRecommendedGroupIds(ids);
+        const sorted = (recRes.data ?? [])
+          .slice()
+          .sort((a, b) => (b.relevance_score ?? 0) - (a.relevance_score ?? 0));
+        setRecommendedGroups(sorted);
       } catch {
         setGroups([]);
-        setRecommendedGroupIds(new Set());
+        setRecommendedGroups([]);
       }
     };
     load();
@@ -239,7 +273,7 @@ export default function Globe({ onNodeClick }: { onNodeClick?: (group: Group | n
         <pointLight position={[-10, -10, -10]} intensity={0.5} color="#FF8800" />
         <Nodes
           groups={groups}
-          recommendedGroupIds={recommendedGroupIds}
+          recommendedGroups={recommendedGroups}
           hoveredNodeIndex={hoveredNodeIndex}
           setHoveredNodeIndex={setHoveredNodeIndex}
           isDraggingRef={isDraggingRef}

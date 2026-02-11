@@ -87,7 +87,7 @@ export default function SidebarRight() {
                             <div className="text-xs text-muted-foreground text-center py-4">No recommendations found. Try updating your profile!</div>
                         ) : (
                             recommendations.map((group) => (
-                                <Link key={group.id} href={`/groups/${group.id}`}>
+                                <Link key={group.id} href={`/waiting-room/${group.id}`}>
                                     <div className="p-3 rounded bg-white/5 hover:bg-white/10 transition-colors border border-white/5 hover:border-primary/30 group cursor-pointer">
                                         <div className="flex justify-between items-start mb-1">
                                             <h4 className="font-bold text-sm text-primary group-hover:text-primary/80 transition-colors uppercase tracking-wider">{group.name}</h4>

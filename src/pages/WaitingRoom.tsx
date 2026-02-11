@@ -3,11 +3,12 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Users, MapPin, User as UserIcon } from "lucide-react";
+import { ArrowLeft, Users, MapPin, User as UserIcon, UserPlus, UserMinus } from "lucide-react";
 import { useLocation, useParams } from "wouter";
 import { api } from "@/lib/api";
 import type { Group, User } from "@/types";
 import { toast } from "sonner";
+import { DEMO_USER_ID } from "@/lib/constants";
 
 export default function WaitingRoom() {
     const [, navigate] = useLocation();
@@ -15,40 +16,67 @@ export default function WaitingRoom() {
     const [group, setGroup] = useState<Group | null>(null);
     const [members, setMembers] = useState<User[]>([]);
     const [loading, setLoading] = useState(true);
+    const [isJoining, setIsJoining] = useState(false);
+    const [isMember, setIsMember] = useState(false);
+
+    const fetchGroupDetails = async () => {
+        if (!params.groupId) return;
+
+        try {
+            // Fetch group data
+            const groupRes = await api.get<Group[]>("/api/v1/groups/");
+            const foundGroup = groupRes.data.find(g => g.id === params.groupId);
+
+            if (!foundGroup) {
+                toast.error("Group not found");
+                navigate("/groups");
+                return;
+            }
+
+            setGroup(foundGroup);
+            setIsMember(foundGroup.members.includes(DEMO_USER_ID));
+
+            // Fetch all users to get member details
+            const usersRes = await api.get<User[]>("/api/v1/users/");
+            const groupMembers = usersRes.data.filter(user =>
+                foundGroup.members.includes(user.id)
+            );
+            setMembers(groupMembers);
+        } catch (error) {
+            console.error("Failed to fetch group details:", error);
+            toast.error("Failed to load group");
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
-        const fetchGroupDetails = async () => {
-            if (!params.groupId) return;
-
-            try {
-                // Fetch group data
-                const groupRes = await api.get<Group[]>("/api/v1/groups/");
-                const foundGroup = groupRes.data.find(g => g.id === params.groupId);
-
-                if (!foundGroup) {
-                    toast.error("Group not found");
-                    navigate("/groups");
-                    return;
-                }
-
-                setGroup(foundGroup);
-
-                // Fetch all users to get member details
-                const usersRes = await api.get<User[]>("/api/v1/users/");
-                const groupMembers = usersRes.data.filter(user =>
-                    foundGroup.members.includes(user.id)
-                );
-                setMembers(groupMembers);
-            } catch (error) {
-                console.error("Failed to fetch group details:", error);
-                toast.error("Failed to load group");
-            } finally {
-                setLoading(false);
-            }
-        };
-
         fetchGroupDetails();
     }, [params.groupId, navigate]);
+
+    const handleJoinLeave = async () => {
+        if (!group || isJoining) return;
+
+        setIsJoining(true);
+        try {
+            if (isMember) {
+                // Leave group
+                await api.post(`/api/v1/groups/${group.id}/leave`);
+                toast.success("Left group");
+            } else {
+                // Join group
+                await api.post(`/api/v1/groups/${group.id}/join`);
+                toast.success("Joined group!");
+            }
+            // Refresh group data
+            await fetchGroupDetails();
+        } catch (error: any) {
+            console.error("Failed to join/leave group:", error);
+            toast.error(error.response?.data?.detail || "Action failed");
+        } finally {
+            setIsJoining(false);
+        }
+    };
 
     if (loading) {
         return (
@@ -61,6 +89,9 @@ export default function WaitingRoom() {
     if (!group) {
         return null;
     }
+
+    const isAdmin = group.admin_id === DEMO_USER_ID;
+    const isFull = group.members.length >= group.max_members;
 
     return (
         <div className="min-h-screen bg-background p-8 overflow-auto">
@@ -83,6 +114,29 @@ export default function WaitingRoom() {
                             <p className="text-sm text-muted-foreground mt-1">{group.description}</p>
                         </div>
                     </div>
+                    <Button
+                        onClick={handleJoinLeave}
+                        disabled={isJoining || isAdmin || (!isMember && isFull)}
+                        className={`gap-2 ${isMember
+                            ? "bg-red-500/20 border-red-500 text-red-500 hover:bg-red-500/30"
+                            : "bg-primary text-black hover:bg-primary/90"
+                            }`}
+                        variant={isMember ? "outline" : "default"}
+                    >
+                        {isJoining ? (
+                            "Loading..."
+                        ) : isMember ? (
+                            <>
+                                <UserMinus className="w-4 h-4" />
+                                Leave Group
+                            </>
+                        ) : (
+                            <>
+                                <UserPlus className="w-4 h-4" />
+                                {isFull ? "Group Full" : "Join Group"}
+                            </>
+                        )}
+                    </Button>
                 </div>
 
                 {/* Group Info */}
