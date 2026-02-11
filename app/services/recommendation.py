@@ -115,13 +115,11 @@ def get_recommended_groups(user: Dict[str, Any], all_groups: List[Dict[str, Any]
         result = calculate_relevance_details(user, group)
         score = result["total"]
         
-        # Filter noise (score <= 20)
-        if score > 20: 
-            # Inject score data into a copy of the group dict
-            group_with_score = group.copy()
-            group_with_score["relevance_score"] = score
-            group_with_score["score_breakdown"] = result["breakdown"]
-            scored_groups.append(group_with_score)
+        # Inject score data into a copy of the group dict
+        group_with_score = group.copy()
+        group_with_score["relevance_score"] = score
+        group_with_score["score_breakdown"] = result["breakdown"]
+        scored_groups.append(group_with_score)
     
     # Sort by score descending
     scored_groups.sort(key=lambda g: g["relevance_score"], reverse=True)

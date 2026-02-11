@@ -22,5 +22,9 @@ export interface Group {
 
 export interface GroupRecommendation extends Group {
     relevance_score: number;
-    score_breakdown: Record<string, any>;
+    score_breakdown: {
+        semantic: number;
+        location: number;
+        age: number;
+    };
 }

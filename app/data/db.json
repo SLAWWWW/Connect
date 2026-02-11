@@ -14,16 +14,14 @@
             "liked_by": []
         },
         {
-            "name": "Demo User",
-            "email": "demo@example.com",
-            "age": 25,
+            "name": "edward",
+            "email": "e@e.com",
+            "age": 18,
             "interests": [
-                "Coding",
-                "Hiking",
-                "Reading"
+                "swimming"
             ],
-            "location": "San Francisco, CA",
-            "id": "community-compass-demo-user",
+            "location": "Singapore",
+            "id": "7fc83204-2a12-4cb3-8f1f-a3115cb64e40",
             "liked_by": []
         }
     ],
@@ -53,6 +51,32 @@
                 "community-compass-demo-user"
             ],
             "admin_id": "community-compass-demo-user"
+        },
+        {
+            "name": "hiking",
+            "description": "-",
+            "activity": "Hiking",
+            "location": "a",
+            "max_members": 10,
+            "age_group": "All Ages",
+            "id": "5bc24109-ee72-4689-b99d-50d84707099b",
+            "members": [
+                "community-compass-demo-user"
+            ],
+            "admin_id": "community-compass-demo-user"
+        },
+        {
+            "name": "tennis",
+            "description": "-",
+            "activity": "Tennis",
+            "location": "San Francisco, CA",
+            "max_members": 10,
+            "age_group": "All Ages",
+            "id": "tennis-group-unique-id-456",
+            "members": [
+                "7fc83204-2a12-4cb3-8f1f-a3115cb64e40"
+            ],
+            "admin_id": "7fc83204-2a12-4cb3-8f1f-a3115cb64e40"
         }
     ]
 }
