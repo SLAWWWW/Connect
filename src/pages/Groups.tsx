@@ -120,7 +120,10 @@ export default function Groups() {
         <div className="min-h-screen bg-background p-8 overflow-auto">
             <div className="max-w-6xl mx-auto space-y-8">
                 <div className="flex justify-between items-center">
-                    <div>
+                    <div
+                        className="cursor-pointer hover:opacity-80 transition-opacity"
+                        onClick={() => navigate("/")}
+                    >
                         <h1 className="text-4xl font-bold font-rajdhani text-primary tracking-wider uppercase drop-shadow-[0_0_10px_rgba(0,204,255,0.4)]">Community Groups</h1>
                         <p className="text-muted-foreground mt-2">Find your tribe or start a new collection.</p>
                     </div>
@@ -218,7 +221,11 @@ export default function Groups() {
                             const isFull = group.members.length >= group.max_members;
 
                             return (
-                                <Card key={group.id} className="glass-panel border-primary/10 hover:border-primary/40 transition-all hover:shadow-[0_0_20px_rgba(0,204,255,0.1)] group">
+                                <Card
+                                    key={group.id}
+                                    className="glass-panel border-primary/10 hover:border-primary/40 transition-all hover:shadow-[0_0_20px_rgba(0,204,255,0.1)] group cursor-pointer"
+                                    onClick={() => navigate(`/waiting-room/${group.id}`)}
+                                >
                                     <CardHeader>
                                         <div className="flex justify-between items-start">
                                             <CardTitle className="text-xl font-bold text-primary tracking-wide">{group.name}</CardTitle>
@@ -247,7 +254,10 @@ export default function Groups() {
                                                 <Button
                                                     variant="destructive"
                                                     className="w-full opacity-0 group-hover:opacity-100 transition-opacity font-bold uppercase tracking-widest"
-                                                    onClick={() => handleDelete(group.id)}
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        handleDelete(group.id);
+                                                    }}
                                                 >
                                                     Delete Group
                                                 </Button>
@@ -255,7 +265,10 @@ export default function Groups() {
                                                 <Button
                                                     variant="destructive"
                                                     className="w-full opacity-0 group-hover:opacity-100 transition-opacity"
-                                                    onClick={() => handleLeave(group.id)}
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        handleLeave(group.id);
+                                                    }}
                                                 >
                                                     Leave Group
                                                 </Button>
@@ -264,7 +277,10 @@ export default function Groups() {
                                             <Button
                                                 className="w-full font-bold uppercase tracking-widest"
                                                 disabled={isFull}
-                                                onClick={() => handleJoin(group.id)}
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    handleJoin(group.id);
+                                                }}
                                             >
                                                 {isFull ? "Group Full" : "Join Group"}
                                             </Button>

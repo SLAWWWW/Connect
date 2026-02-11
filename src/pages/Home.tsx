@@ -18,8 +18,9 @@ export default function Home({ targetSection }: HomeProps) {
     const [, navigate] = useLocation();
 
     const handleNodeClick = (group: Group | null) => {
-        const groupName = group?.name || "Community Room";
-        navigate(`/waiting-room?group=${encodeURIComponent(groupName)}`);
+        if (group?.id) {
+            navigate(`/waiting-room/${group.id}`);
+        }
     };
 
     useEffect(() => {

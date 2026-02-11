@@ -14,6 +14,7 @@ import { DEMO_USER_ID } from "@/lib/constants";
 export default function SidebarLeft() {
   const [user, setUser] = useState<User | null>(null);
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
+  const [groupsJoined, setGroupsJoined] = useState<number>(0);
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -26,6 +27,20 @@ export default function SidebarLeft() {
       }
     };
     fetchUser();
+
+    const fetchGroups = async () => {
+      try {
+        const response = await api.get<any[]>("/api/v1/groups/");
+        // Count groups where user is a member
+        const joinedCount = response.data.filter(group =>
+          group.members?.includes(DEMO_USER_ID)
+        ).length;
+        setGroupsJoined(joinedCount);
+      } catch (error) {
+        console.error("Failed to fetch groups:", error);
+      }
+    };
+    fetchGroups();
   }, []);
 
   const toggleInterest = (tag: string) => {
@@ -107,9 +122,9 @@ export default function SidebarLeft() {
               {friends.map((friend, i) => (
                 <div key={i} className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 transition-colors cursor-pointer group">
                   <Avatar className="h-9 w-9 border border-white/10 group-hover:border-primary/50 transition-colors">
-                                <AvatarFallback className="bg-muted text-muted-foreground">
-                                  <UserIcon className="h-4 w-4" />
-                                </AvatarFallback>
+                    <AvatarFallback className="bg-muted text-muted-foreground">
+                      <UserIcon className="h-4 w-4" />
+                    </AvatarFallback>
                   </Avatar>
                   <div className="flex-1 overflow-hidden">
                     <div className="text-sm font-medium truncate group-hover:text-primary transition-colors">{friend.name}</div>
@@ -137,7 +152,7 @@ export default function SidebarLeft() {
             <Link href="/groups">
               <div className="bg-white/5 rounded-lg p-3 text-center border border-white/5 hover:border-secondary/30 transition-colors cursor-pointer group">
                 <div className="text-secondary mb-1 flex justify-center group-hover:scale-110 transition-transform"><Users size={18} /></div>
-                <div className="text-2xl font-bold font-rajdhani text-secondary">8</div>
+                <div className="text-2xl font-bold font-rajdhani text-secondary">{groupsJoined}</div>
                 <div className="text-[10px] text-muted-foreground uppercase tracking-wider">Groups Joined</div>
               </div>
             </Link>

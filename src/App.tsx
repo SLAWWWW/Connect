@@ -16,7 +16,7 @@ function AppRouter() {
     <Router hook={useHashLocation}>
       <Switch>
         {/* Add explicit routes here, e.g.: <Route path="/login" component={LoginPage} /> */}
-        <Route path="/waiting-room" component={WaitingRoom} />
+        <Route path="/waiting-room/:groupId" component={WaitingRoom} />
         <Route path="/groups" component={Groups} />
         <Route path="/:section?">{(params) => <Home targetSection={params.section} />}</Route>
       </Switch>

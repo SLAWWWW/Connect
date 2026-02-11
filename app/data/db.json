@@ -72,7 +72,8 @@
             "age_group": "18-35",
             "id": "beach-vball-001",
             "members": [
-                "7fc83204-2a12-4cb3-8f1f-a3115cb64e40"
+                "7fc83204-2a12-4cb3-8f1f-a3115cb64e40",
+                "community-compass-demo-user"
             ],
             "admin_id": "7fc83204-2a12-4cb3-8f1f-a3115cb64e40"
         },
@@ -90,7 +91,8 @@
             "age_group": "All Ages",
             "id": "photo-walk-002",
             "members": [
-                "7fc83204-2a12-4cb3-8f1f-a3115cb64e40"
+                "7fc83204-2a12-4cb3-8f1f-a3115cb64e40",
+                "community-compass-demo-user"
             ],
             "admin_id": "7fc83204-2a12-4cb3-8f1f-a3115cb64e40"
         },
