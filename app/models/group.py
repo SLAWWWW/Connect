@@ -5,7 +5,7 @@ from uuid import uuid4
 class GroupBase(BaseModel):
     name: str
     description: str
-    activity: str
+    activity: List[str]
     location: str
     max_members: int
     age_group: str = "All Ages"

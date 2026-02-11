@@ -49,7 +49,6 @@ export default function Groups() {
         try {
             await api.post("/api/v1/groups/", {
                 ...newGroup,
-                activity: newGroup.activity.join(" "), // Join tags into single string for backend
                 max_members: parseInt(newGroup.max_members)
             });
             toast.success("Group created successfully!");
@@ -206,7 +205,11 @@ export default function Groups() {
                                     <CardHeader>
                                         <div className="flex justify-between items-start">
                                             <CardTitle className="text-xl font-bold text-primary tracking-wide">{group.name}</CardTitle>
-                                            <Badge variant="outline" className="text-xs border-primary/20 text-primary/80">{group.activity}</Badge>
+                                            <div className="flex flex-wrap gap-1 justify-end max-w-[50%]">
+                                                {group.activity.map((tag, idx) => (
+                                                    <Badge key={idx} variant="outline" className="text-[10px] border-primary/20 text-primary/80">{tag}</Badge>
+                                                ))}
+                                            </div>
                                         </div>
                                     </CardHeader>
                                     <CardContent className="space-y-4">

@@ -12,7 +12,7 @@ export interface Group {
     id: string;
     name: string;
     description: string;
-    activity: string;
+    activity: string[];  // Changed from string to string[]
     location: string;
     max_members: number;
     age_group: string;

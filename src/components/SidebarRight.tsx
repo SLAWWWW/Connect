@@ -100,7 +100,12 @@ export default function SidebarRight() {
                                         </div>
                                         <div className="text-xs text-muted-foreground mb-2 line-clamp-2">{group.description}</div>
                                         <div className="flex items-center justify-between text-[10px] text-muted-foreground/70 uppercase tracking-wider">
-                                            <span>{group.activity}</span>
+                                            <span className="flex flex-wrap gap-1">
+                                                {group.activity.slice(0, 2).map((tag, idx) => (
+                                                    <span key={idx} className="text-primary">{tag}</span>
+                                                ))}
+                                                {group.activity.length > 2 && <span>+{group.activity.length - 2}</span>}
+                                            </span>
                                             <span className="flex items-center gap-1"><Users size={10} /> {group.members?.length || 0}/{group.max_members}</span>
                                         </div>
                                         {/* Breakdown Mini-View */}

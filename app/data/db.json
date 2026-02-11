@@ -29,7 +29,9 @@
         {
             "name": "a",
             "description": "a",
-            "activity": "Sports",
+            "activity": [
+                "Sports"
+            ],
             "location": "ak",
             "max_members": 10,
             "age_group": "All Ages",
@@ -42,7 +44,9 @@
         {
             "name": "abc",
             "description": "a",
-            "activity": "Gaming",
+            "activity": [
+                "Gaming"
+            ],
             "location": "a",
             "max_members": 10,
             "age_group": "All Ages",
@@ -55,7 +59,9 @@
         {
             "name": "hiking",
             "description": "-",
-            "activity": "Hiking",
+            "activity": [
+                "Hiking"
+            ],
             "location": "a",
             "max_members": 10,
             "age_group": "All Ages",
@@ -68,7 +74,9 @@
         {
             "name": "tennis",
             "description": "-",
-            "activity": "Tennis",
+            "activity": [
+                "Tennis"
+            ],
             "location": "San Francisco, CA",
             "max_members": 10,
             "age_group": "All Ages",
@@ -81,7 +89,12 @@
         {
             "name": "valo",
             "description": "a",
-            "activity": "gaming valorant online computer",
+            "activity": [
+                "gaming",
+                "valorant",
+                "online",
+                "computer"
+            ],
             "location": "online",
             "max_members": 10,
             "age_group": "All Ages",

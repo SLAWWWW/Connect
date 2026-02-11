@@ -24,18 +24,18 @@ def test_create_group(client: TestClient, admin_user):
         "/api/v1/groups/",
         headers={"X-User-ID": admin_user},
         json={
-            "name": "Badminton Group",
-            "description": "Fun",
-            "activity": "Badminton",
-            "location": "Court A",
+            "name": "Test Group",
+            "description": "A test group",
+            "activity": ["Hiking"],
+            "location": "San Francisco",
             "max_members": 2,
             "age_group": "18-25"
         }
     )
     assert response.status_code == 201
     data = response.json()
-    assert data["name"] == "Badminton Group"
-    assert data["age_group"] == "18-25"
+    assert data["name"] == "Test Group"
+    assert data["activity"] == ["Hiking"]
     assert data["admin_id"] == admin_user
     assert admin_user in data["members"]
 
@@ -44,7 +44,7 @@ def test_join_group(client: TestClient, admin_user, other_user):
     g_res = client.post(
         "/api/v1/groups/",
         headers={"X-User-ID": admin_user},
-        json={"name": "Group 1", "description": "D", "activity": "A", "location": "L", "max_members": 2}
+        json={"name": "Group 1", "description": "D", "activity": ["A"], "location": "L", "max_members": 2}
     )
     group_id = g_res.json()["id"]
     
@@ -61,7 +61,7 @@ def test_join_full_group(client: TestClient, admin_user, other_user):
     g_res = client.post(
         "/api/v1/groups/",
         headers={"X-User-ID": admin_user},
-        json={"name": "Full Group", "description": "D", "activity": "A", "location": "L", "max_members": 1}
+        json={"name": "Full Group", "description": "D", "activity": ["A"], "location": "L", "max_members": 1}
     )
     group_id = g_res.json()["id"]
     
@@ -78,7 +78,7 @@ def test_leave_group(client: TestClient, admin_user, other_user):
     g_res = client.post(
         "/api/v1/groups/",
         headers={"X-User-ID": admin_user},
-        json={"name": "Group 1", "description": "D", "activity": "A", "location": "L", "max_members": 3}
+        json={"name": "Group 1", "description": "D", "activity": ["A"], "location": "L", "max_members": 3}
     )
     group_id = g_res.json()["id"]
     
@@ -98,7 +98,7 @@ def test_admin_cannot_leave(client: TestClient, admin_user):
     g_res = client.post(
         "/api/v1/groups/",
         headers={"X-User-ID": admin_user},
-        json={"name": "Group 1", "description": "D", "activity": "A", "location": "L", "max_members": 3}
+        json={"name": "Group 1", "description": "D", "activity": ["A"], "location": "L", "max_members": 3}
     )
     group_id = g_res.json()["id"]
     
@@ -115,14 +115,14 @@ def test_get_groups_looking_for_members(client: TestClient, admin_user):
     client.post(
         "/api/v1/groups/",
         headers={"X-User-ID": admin_user},
-        json={"name": "Full", "description": "D", "activity": "A", "location": "L", "max_members": 1}
+        json={"name": "Full", "description": "D", "activity": ["A"], "location": "L", "max_members": 1}
     )
     
     # Group 2: Open (1/2)
     client.post(
         "/api/v1/groups/",
         headers={"X-User-ID": admin_user},
-        json={"name": "Open", "description": "D", "activity": "A", "location": "L", "max_members": 2}
+        json={"name": "Open", "description": "D", "activity": ["A"], "location": "L", "max_members": 2}
     )
     
     response = client.get("/api/v1/groups/groups_not_full", headers={"X-User-ID": admin_user})

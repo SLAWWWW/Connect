@@ -59,20 +59,25 @@ def calculate_relevance_details(user: Dict[str, Any], group: Dict[str, Any]) -> 
     Returns: {'total': int, 'breakdown':Dict[str, int]}
     
     Scoring Rules:
-    - Semantic Interest: 0-100
+    - Semantic Interest: 0-100 (max similarity across all interest-activity tag pairs)
     - Location: +50 (Exact)
     - Age Group: +30 (In Range)
     """
     breakdown = {}
     
-    # 1. Semantic Interest
+    # 1. Semantic Interest - Compare user interests against group activity tags
     semantic_score = 0
     user_interests = user.get("interests", [])
-    group_activity = group.get("activity", "")
+    group_activities = group.get("activity", [])
     
-    if user_interests and group_activity:
-        similarities = [calculate_semantic_score(interest, group_activity) for interest in user_interests]
-        semantic_score = max(similarities) if similarities else 0
+    if user_interests and group_activities:
+        # Calculate similarity between all interest-activity pairs
+        max_similarity = 0
+        for interest in user_interests:
+            for activity in group_activities:
+                similarity = calculate_semantic_score(interest, activity)
+                max_similarity = max(max_similarity, similarity)
+        semantic_score = max_similarity
     breakdown["semantic"] = semantic_score
 
     # 2. Location
