@@ -5,7 +5,8 @@ import SidebarRight from "@/components/SidebarRight";
 import { Loader2, Wifi, WifiOff } from "lucide-react";
 import { api } from "@/lib/api";
 import { DEMO_USER_ID } from "@/lib/constants";
-import type { User } from "@/types";
+import type { User, Group } from "@/types";
+import { useLocation } from "wouter";
 
 interface HomeProps {
     targetSection?: string;
@@ -14,6 +15,12 @@ interface HomeProps {
 export default function Home({ targetSection }: HomeProps) {
     const [backendStatus, setBackendStatus] = useState<"checking" | "connected" | "error">("checking");
     const [userName, setUserName] = useState<string>("");
+    const [, navigate] = useLocation();
+
+    const handleNodeClick = (group: Group | null) => {
+        const groupName = group?.name || "Community Room";
+        navigate(`/waiting-room?group=${encodeURIComponent(groupName)}`);
+    };
 
     useEffect(() => {
         const checkConnection = async () => {
@@ -55,7 +62,7 @@ export default function Home({ targetSection }: HomeProps) {
                         <Loader2 className="animate-spin w-10 h-10" />
                     </div>
                 }>
-                    <Globe />
+                    <Globe onNodeClick={handleNodeClick} />
                 </Suspense>
             </div>
 

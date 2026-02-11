@@ -8,9 +8,6 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Star } from "lucide-react";
-import avatar1 from "@/assets/avatars/avatar1.jpg";
-import avatar3 from "@/assets/avatars/avatar3.jpg";
-import avatar4 from "@/assets/avatars/avatar4.jpg";
 
 import { useEffect, useState } from "react";
 import type { GroupRecommendation } from "@/types";

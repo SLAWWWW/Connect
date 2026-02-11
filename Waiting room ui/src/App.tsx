@@ -5,7 +5,6 @@ import { useHashLocation } from "wouter/use-hash-location";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import Home from "@/pages/Home";
-import Groups from "@/pages/Groups";
 import WaitingRoom from "@/pages/WaitingRoom";
 
 // Use hash-based routing (/#/) to support opening index.html directly via file:// protocol
@@ -15,9 +14,7 @@ function AppRouter() {
   return (
     <Router hook={useHashLocation}>
       <Switch>
-        {/* Add explicit routes here, e.g.: <Route path="/login" component={LoginPage} /> */}
         <Route path="/waiting-room" component={WaitingRoom} />
-        <Route path="/groups" component={Groups} />
         <Route path="/:section?">{(params) => <Home targetSection={params.section} />}</Route>
       </Switch>
     </Router>
@@ -29,11 +26,7 @@ function AppRouter() {
 // - Update the color palette in index.css to match
 // - If you want switchable themes, add `switchable` prop and use `useTheme` hook
 
-import { useDemoUser } from "@/hooks/useDemoUser";
-
 function App() {
-  useDemoUser();
-
   return (
     <ErrorBoundary>
       <ThemeProvider defaultTheme="light">

@@ -19,12 +19,14 @@ function Nodes({
   hoveredNodeIndex,
   setHoveredNodeIndex,
   isDraggingRef,
+  onNodeClick,
 }: {
   groups: Group[];
   recommendedGroupIds: Set<string>;
   hoveredNodeIndex: number | null;
   setHoveredNodeIndex: (i: number | null) => void;
   isDraggingRef: React.MutableRefObject<boolean>;
+  onNodeClick?: (group: Group | null) => void;
 }) {
   const points = useMemo(() => {
     const temp: THREE.Vector3[] = [];
@@ -127,7 +129,7 @@ function Nodes({
         />
       </Sphere>
 
-      {/* Nodes — larger invisible hover target + visual dot */} 
+      {/* Nodes — larger invisible hover target + visual dot */}
       {points.map((point, i) => {
         const assigned = groupPerNode(i);
         const isRecommended = assigned ? recommendedGroupIds.has(assigned.id) : false;
@@ -144,6 +146,12 @@ function Nodes({
               onPointerOut={() => {
                 document.body.style.cursor = 'auto';
                 setHoveredNodeIndex(null);
+              }}
+              onClick={(e) => {
+                e.stopPropagation();
+                if (!isDraggingRef.current && onNodeClick) {
+                  onNodeClick(assigned);
+                }
               }}
             >
               <sphereGeometry args={[NODE_HIT_RADIUS, 16, 16]} />
@@ -186,6 +194,7 @@ function Nodes({
                 {hoveredGroup.name} ({hoveredGroup.members.length}/{hoveredGroup.max_members})
               </div>
             )}
+            <div className="mt-1 text-[10px] text-primary/60 uppercase">Click to enter</div>
           </div>
         </Html>
       )}
@@ -193,7 +202,7 @@ function Nodes({
   );
 }
 
-export default function Globe() {
+export default function Globe({ onNodeClick }: { onNodeClick?: (group: Group | null) => void }) {
   const [groups, setGroups] = useState<Group[]>([]);
   const [hoveredNodeIndex, setHoveredNodeIndex] = useState<number | null>(null);
   const isDraggingRef = useRef(false);
@@ -234,6 +243,7 @@ export default function Globe() {
           hoveredNodeIndex={hoveredNodeIndex}
           setHoveredNodeIndex={setHoveredNodeIndex}
           isDraggingRef={isDraggingRef}
+          onNodeClick={onNodeClick}
         />
       </Canvas>
     </div>

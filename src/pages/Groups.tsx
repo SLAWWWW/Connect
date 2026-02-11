@@ -12,11 +12,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { toast } from "sonner";
 import { Users, MapPin, Activity, Plus } from "lucide-react";
 import { DEMO_USER_ID } from "@/lib/constants";
+import { useLocation } from "wouter";
 
 export default function Groups() {
     const [groups, setGroups] = useState<Group[]>([]);
     const [loading, setLoading] = useState(true);
-    const [isCreating, setCreating] = useState(false); // State to control modal if needed, or just use Dialog
+    const [isCreating, setCreating] = useState(false);
+    const [, navigate] = useLocation();
 
     // Form State
     const [newGroup, setNewGroup] = useState({
@@ -80,10 +82,12 @@ export default function Groups() {
     };
 
     const handleJoin = async (groupId: string) => {
+        const group = groups.find(g => g.id === groupId);
         try {
             await api.post(`/api/v1/groups/${groupId}/join`);
             toast.success("Joined group!");
-            fetchGroups();
+            const groupName = group?.name || "Community Room";
+            navigate(`/waiting-room?group=${encodeURIComponent(groupName)}`);
         } catch (error: any) {
             toast.error(error.response?.data?.detail || "Failed to join group");
         }
