@@ -5,16 +5,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
-import { Star } from "lucide-react";
-import avatar1 from "@/assets/avatars/avatar1.jpg";
-import avatar3 from "@/assets/avatars/avatar3.jpg";
-import avatar4 from "@/assets/avatars/avatar4.jpg";
+import { Star, User } from "lucide-react";
 
 export default function SidebarRight() {
   const ratings = [
-    { name: "John S.", rating: 4, img: avatar3 },
-    { name: "Emily R.", rating: 5, img: avatar4 },
-    { name: "David K.", rating: 3, img: avatar1 },
+    { name: "John S.", rating: 4 },
+    { name: "Emily R.", rating: 5 },
+    { name: "David K.", rating: 3 },
   ];
 
   return (
@@ -87,8 +84,10 @@ export default function SidebarRight() {
                     <div key={i} className="flex items-center justify-between p-2 rounded bg-white/5 hover:bg-white/10 transition-colors">
                         <div className="flex items-center gap-2">
                              <Avatar className="h-8 w-8">
-                                <AvatarImage src={user.img} />
-                                <AvatarFallback>{user.name[0]}</AvatarFallback>
+                                <AvatarImage src={undefined} />
+                                <AvatarFallback className="bg-muted text-muted-foreground">
+                                  <User className="h-4 w-4" />
+                                </AvatarFallback>
                             </Avatar>
                             <span className="text-sm font-medium">{user.name}</span>
                         </div>

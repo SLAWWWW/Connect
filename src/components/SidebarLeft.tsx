@@ -3,11 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Search, ThumbsUp, Users } from "lucide-react";
-import avatar1 from "@/assets/avatars/avatar1.jpg";
-import avatar2 from "@/assets/avatars/avatar2.jpg";
-import avatar3 from "@/assets/avatars/avatar3.jpg";
-import avatar4 from "@/assets/avatars/avatar4.jpg";
+import { Search, ThumbsUp, User, Users } from "lucide-react";
 
 import { useState } from "react";
 
@@ -21,10 +17,10 @@ export default function SidebarLeft() {
     );
   };
   const friends = [
-    { name: "Sarah K.", status: "Online", img: avatar2 },
-    { name: "John D.", status: "In Game", img: avatar1 },
-    { name: "Mike R.", status: "Away", img: avatar3 },
-    { name: "Elena V.", status: "Online", img: avatar4 },
+    { name: "Sarah K.", status: "Online" },
+    { name: "John D.", status: "In Game" },
+    { name: "Mike R.", status: "Away" },
+    { name: "Elena V.", status: "Online" },
   ];
 
   return (
@@ -39,8 +35,10 @@ export default function SidebarLeft() {
         <CardContent>
           <div className="flex items-center gap-4 mb-4">
              <Avatar className="h-12 w-12 border-2 border-primary ring-2 ring-primary/20">
-                <AvatarImage src={avatar1} />
-                <AvatarFallback>MR</AvatarFallback>
+                <AvatarImage src={undefined} />
+                <AvatarFallback className="bg-muted text-muted-foreground">
+                  <User className="h-6 w-6" />
+                </AvatarFallback>
              </Avatar>
              <div>
                 <div className="font-bold text-lg">Michael Ryan</div>
@@ -92,8 +90,10 @@ export default function SidebarLeft() {
                     {friends.map((friend, i) => (
                         <div key={i} className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 transition-colors cursor-pointer group">
                             <Avatar className="h-9 w-9 border border-white/10 group-hover:border-primary/50 transition-colors">
-                                <AvatarImage src={friend.img} />
-                                <AvatarFallback>{friend.name[0]}</AvatarFallback>
+                                <AvatarImage src={undefined} />
+                                <AvatarFallback className="bg-muted text-muted-foreground">
+                                  <User className="h-4 w-4" />
+                                </AvatarFallback>
                             </Avatar>
                             <div className="flex-1 overflow-hidden">
                                 <div className="text-sm font-medium truncate group-hover:text-primary transition-colors">{friend.name}</div>
