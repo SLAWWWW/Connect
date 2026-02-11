@@ -4,6 +4,8 @@ import SidebarLeft from "@/components/SidebarLeft";
 import SidebarRight from "@/components/SidebarRight";
 import { Loader2, Wifi, WifiOff } from "lucide-react";
 import { api } from "@/lib/api";
+import { DEMO_USER_ID } from "@/lib/constants";
+import type { User } from "@/types";
 
 interface HomeProps {
     targetSection?: string;
@@ -11,6 +13,7 @@ interface HomeProps {
 
 export default function Home({ targetSection }: HomeProps) {
     const [backendStatus, setBackendStatus] = useState<"checking" | "connected" | "error">("checking");
+    const [userName, setUserName] = useState<string>("");
 
     useEffect(() => {
         const checkConnection = async () => {
@@ -23,6 +26,16 @@ export default function Home({ targetSection }: HomeProps) {
             }
         };
         checkConnection();
+
+        const fetchUser = async () => {
+            try {
+                const res = await api.get<User>(`/api/v1/users/${DEMO_USER_ID}`);
+                setUserName(res.data.name);
+            } catch (e) {
+                console.error("Failed to fetch user name", e);
+            }
+        };
+        fetchUser();
     }, []);
 
     return (
@@ -32,6 +45,7 @@ export default function Home({ targetSection }: HomeProps) {
                 <h1 className="text-5xl font-bold tracking-[0.2em] text-white drop-shadow-[0_0_10px_rgba(0,204,255,0.8)] font-rajdhani select-none pointer-events-none">
                     CONNECT
                 </h1>
+                {userName && <p className="text-white/80 text-sm tracking-widest uppercase mt-2">Welcome, <span className="text-primary font-bold">{userName}</span></p>}
             </div>
 
             {/* 3D Background */}

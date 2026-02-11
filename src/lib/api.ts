@@ -8,6 +8,14 @@ export const api = axios.create({
     },
 });
 
+import { DEMO_USER_ID } from "@/lib/constants";
+
+// Add a request interceptor to inject the user ID
+api.interceptors.request.use((config) => {
+    config.headers["x-user-id"] = DEMO_USER_ID;
+    return config;
+});
+
 // Add a response interceptor to handle errors globally if needed
 api.interceptors.response.use(
     (response) => response,

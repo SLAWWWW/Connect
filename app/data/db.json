@@ -1,40 +1,58 @@
 {
     "users": [
         {
-            "name": "michael",
-            "email": "michael@a.a",
-            "age": 100,
+            "name": "Demo User",
+            "email": "demo@example.com",
+            "age": 25,
             "interests": [
-                "abc",
-                "def"
+                "Coding",
+                "Hiking",
+                "Reading"
             ],
-            "location": "singapore",
-            "id": "e530cf1b-e7a2-4996-ad7d-bccee69e73e5"
+            "location": "San Francisco, CA",
+            "id": "community-compass-demo-user",
+            "liked_by": []
         },
         {
-            "name": "michael2",
-            "email": "michael2@a.a",
-            "age": 100,
+            "name": "Demo User",
+            "email": "demo@example.com",
+            "age": 25,
             "interests": [
-                "abc",
-                "def"
+                "Coding",
+                "Hiking",
+                "Reading"
             ],
-            "location": "singapore",
-            "id": "5fcf7b0b-169a-4f9a-8b9c-a1c0433da515"
+            "location": "San Francisco, CA",
+            "id": "community-compass-demo-user",
+            "liked_by": []
         }
     ],
     "groups": [
         {
-            "name": "michaeling",
-            "description": "mich",
-            "activity": "string",
-            "location": "string",
-            "max_members": 100,
-            "id": "6e1f2ee9-ef78-44b7-aa80-f7409daa56c4",
+            "name": "a",
+            "description": "a",
+            "activity": "Sports",
+            "location": "ak",
+            "max_members": 10,
+            "age_group": "All Ages",
+            "id": "ea1078d6-b030-4908-959c-7b32da890ead",
             "members": [
-                "5fcf7b0b-169a-4f9a-8b9c-a1c0433da515"
+                "community-compass-demo-user"
             ],
-            "admin_id": "5fcf7b0b-169a-4f9a-8b9c-a1c0433da515"
+            "admin_id": "community-compass-demo-user"
+        },
+        {
+            "name": "abc",
+            "description": "a",
+            "activity": "Gaming",
+            "location": "a",
+            "max_members": 10,
+            "age_group": "All Ages",
+            "id": "ffc7e312-d22d-45cd-9b26-224a669d3c2e",
+            "members": [
+                "community-compass-demo-user"
+            ],
+            "admin_id": "community-compass-demo-user"
         }
     ]
 }

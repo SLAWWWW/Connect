@@ -19,7 +19,18 @@ def create_user(user_in: UserCreate):
                 detail="The user with this email already exists in the system.",
             )
     
-    user = User(**user_in.dict())
+    # Check if ID already exists (if provided)
+    if user_in.id:
+        existing_user = storage.get_item_by_id("users", user_in.id)
+        if existing_user:
+             # If user exists, return it (idempotency for demo)
+            return User(**existing_user)
+
+    user_data = user_in.dict()
+    if user_data.get("id") is None:
+        del user_data["id"]
+        
+    user = User(**user_data)
     storage.add_item("users", user.dict())
     return user
 
