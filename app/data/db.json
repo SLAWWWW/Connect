@@ -77,6 +77,19 @@
                 "7fc83204-2a12-4cb3-8f1f-a3115cb64e40"
             ],
             "admin_id": "7fc83204-2a12-4cb3-8f1f-a3115cb64e40"
+        },
+        {
+            "name": "valo",
+            "description": "a",
+            "activity": "gaming valorant online computer",
+            "location": "online",
+            "max_members": 10,
+            "age_group": "All Ages",
+            "id": "f2de7c4e-219b-4b8f-b435-4ef50439269a",
+            "members": [
+                "community-compass-demo-user"
+            ],
+            "admin_id": "community-compass-demo-user"
         }
     ]
 }

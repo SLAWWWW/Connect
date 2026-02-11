@@ -95,7 +95,7 @@ export default function SidebarRight() {
                                         <div className="flex justify-between items-start mb-1">
                                             <h4 className="font-bold text-sm text-primary group-hover:text-primary/80 transition-colors uppercase tracking-wider">{group.name}</h4>
                                             <Badge variant="outline" className="text-[10px] h-5 border-primary/20 text-primary bg-primary/10">
-                                                {group.relevance_score} Matches
+                                                {group.relevance_score} Match Score
                                             </Badge>
                                         </div>
                                         <div className="text-xs text-muted-foreground mb-2 line-clamp-2">{group.description}</div>

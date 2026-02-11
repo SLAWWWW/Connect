@@ -22,11 +22,12 @@ export default function Groups() {
     const [newGroup, setNewGroup] = useState({
         name: "",
         description: "",
-        activity: "",
+        activity: [] as string[], // Changed to array for tags
         location: "",
         max_members: "10",
         age_group: "All Ages"
     });
+    const [activityInput, setActivityInput] = useState(""); // Temporary input for typing
 
     const fetchGroups = async () => {
         try {
@@ -48,15 +49,35 @@ export default function Groups() {
         try {
             await api.post("/api/v1/groups/", {
                 ...newGroup,
+                activity: newGroup.activity.join(" "), // Join tags into single string for backend
                 max_members: parseInt(newGroup.max_members)
             });
             toast.success("Group created successfully!");
-            setNewGroup({ name: "", description: "", activity: "", location: "", max_members: "10", age_group: "All Ages" });
+            setNewGroup({ name: "", description: "", activity: [], location: "", max_members: "10", age_group: "All Ages" });
+            setActivityInput("");
             fetchGroups(); // Refresh list
         } catch (error) {
             console.error("Failed to create group:", error);
             toast.error("Failed to create group");
         }
+    };
+
+    const handleActivityKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === " " || e.key === "Enter") {
+            e.preventDefault();
+            const trimmed = activityInput.trim();
+            if (trimmed && !newGroup.activity.includes(trimmed)) {
+                setNewGroup({ ...newGroup, activity: [...newGroup.activity, trimmed] });
+                setActivityInput("");
+            }
+        } else if (e.key === "Backspace" && activityInput === "" && newGroup.activity.length > 0) {
+            // Remove last tag on backspace when input is empty
+            setNewGroup({ ...newGroup, activity: newGroup.activity.slice(0, -1) });
+        }
+    };
+
+    const removeActivityTag = (tagToRemove: string) => {
+        setNewGroup({ ...newGroup, activity: newGroup.activity.filter(tag => tag !== tagToRemove) });
     };
 
     const handleJoin = async (groupId: string) => {
@@ -117,17 +138,33 @@ export default function Groups() {
                                 </div>
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="space-y-2">
-                                        <Label>Activity Type</Label>
-                                        <Select onValueChange={v => setNewGroup({ ...newGroup, activity: v })}>
-                                            <SelectTrigger className="glass-input"><SelectValue placeholder="Select" /></SelectTrigger>
-                                            <SelectContent>
-                                                <SelectItem value="Hiking">Hiking</SelectItem>
-                                                <SelectItem value="Gaming">Gaming</SelectItem>
-                                                <SelectItem value="Sports">Sports</SelectItem>
-                                                <SelectItem value="Reading">Reading</SelectItem>
-                                                <SelectItem value="Food">Food</SelectItem>
-                                            </SelectContent>
-                                        </Select>
+                                        <Label>Activity Tags</Label>
+                                        <div className="glass-input min-h-[40px] flex flex-wrap gap-2 items-center p-2">
+                                            {newGroup.activity.map((tag, index) => (
+                                                <Badge
+                                                    key={index}
+                                                    variant="secondary"
+                                                    className="bg-primary/20 text-primary border-primary/40 px-2 py-1 flex items-center gap-1"
+                                                >
+                                                    {tag}
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => removeActivityTag(tag)}
+                                                        className="ml-1 hover:text-primary/60 transition-colors"
+                                                    >
+                                                        ×
+                                                    </button>
+                                                </Badge>
+                                            ))}
+                                            <Input
+                                                placeholder="Type and press space..."
+                                                value={activityInput}
+                                                onChange={e => setActivityInput(e.target.value)}
+                                                onKeyDown={handleActivityKeyDown}
+                                                className="border-none bg-transparent flex-1 min-w-[120px] focus-visible:ring-0 focus-visible:ring-offset-0 p-0 h-auto"
+                                            />
+                                        </div>
+                                        <p className="text-xs text-muted-foreground">Press space or enter to add tags</p>
                                     </div>
                                     <div className="space-y-2">
                                         <Label>Location</Label>
