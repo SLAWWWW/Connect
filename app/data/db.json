@@ -12,7 +12,9 @@
             ],
             "location": "Central",
             "id": "community-compass-demo-user",
-            "liked_by": []
+            "liked_by": [
+                "user-001"
+            ]
         },
         {
             "name": "Marcus Chen",

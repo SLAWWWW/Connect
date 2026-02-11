@@ -20,6 +20,7 @@ export default function SidebarLeft() {
   const [allUsers, setAllUsers] = useState<User[]>([]);
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
   const [groupsJoined, setGroupsJoined] = useState<number>(0);
+  const [mutualsCount, setMutualsCount] = useState<number>(0);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [likingUserId, setLikingUserId] = useState<string | null>(null);
   useEffect(() => {
@@ -53,6 +54,15 @@ export default function SidebarLeft() {
       try {
         const response = await api.get<User[]>("/api/v1/users/");
         setAllUsers(response.data);
+
+        // Calculate mutuals count
+        const currentUserData = await api.get<User>(`/api/v1/users/${DEMO_USER_ID}`);
+        const mutuals = response.data.filter(u =>
+          u.id !== DEMO_USER_ID &&
+          u.liked_by?.includes(DEMO_USER_ID) &&
+          currentUserData.data.liked_by?.includes(u.id)
+        );
+        setMutualsCount(mutuals.length);
       } catch (error) {
         console.error("Failed to fetch users:", error);
       }
@@ -273,17 +283,24 @@ export default function SidebarLeft() {
       {/* Stats */}
       < Card className="glass-panel border-none text-foreground shrink-0" >
         <CardContent className="pt-6">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-3 gap-3">
             <div className="bg-white/5 rounded-lg p-3 text-center border border-white/5 hover:border-primary/30 transition-colors">
-              <div className="text-primary mb-1 flex justify-center"><ThumbsUp size={18} /></div>
-              <div className="text-2xl font-bold font-rajdhani">{user.liked_by?.length || 0}</div>
-              <div className="text-[10px] text-muted-foreground uppercase tracking-wider">Likes Received</div>
+              <div className="text-primary mb-1 flex justify-center"><ThumbsUp size={16} /></div>
+              <div className="text-xl font-bold font-rajdhani">{user.liked_by?.length || 0}</div>
+              <div className="text-[9px] text-muted-foreground uppercase tracking-wider">Likes</div>
             </div>
+            <Link href="/mutuals">
+              <div className="bg-white/5 rounded-lg p-3 text-center border border-white/5 hover:border-red-400/30 transition-colors cursor-pointer group">
+                <div className="text-red-400 mb-1 flex justify-center group-hover:scale-110 transition-transform"><Heart size={16} /></div>
+                <div className="text-xl font-bold font-rajdhani text-red-400">{mutualsCount}</div>
+                <div className="text-[9px] text-muted-foreground uppercase tracking-wider">Mutuals</div>
+              </div>
+            </Link>
             <Link href="/groups">
               <div className="bg-white/5 rounded-lg p-3 text-center border border-white/5 hover:border-secondary/30 transition-colors cursor-pointer group">
-                <div className="text-secondary mb-1 flex justify-center group-hover:scale-110 transition-transform"><Users size={18} /></div>
-                <div className="text-2xl font-bold font-rajdhani text-secondary">{groupsJoined}</div>
-                <div className="text-[10px] text-muted-foreground uppercase tracking-wider">Groups Joined</div>
+                <div className="text-secondary mb-1 flex justify-center group-hover:scale-110 transition-transform"><Users size={16} /></div>
+                <div className="text-xl font-bold font-rajdhani text-secondary">{groupsJoined}</div>
+                <div className="text-[9px] text-muted-foreground uppercase tracking-wider">Groups</div>
               </div>
             </Link>
           </div>

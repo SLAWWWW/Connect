@@ -8,6 +8,7 @@ import Home from "@/pages/Home";
 import Groups from "@/pages/Groups";
 import WaitingRoom from "@/pages/WaitingRoom";
 import Profile from "@/pages/Profile";
+import Mutuals from "@/pages/Mutuals";
 
 // Use hash-based routing (/#/) to support opening index.html directly via file:// protocol
 // Tolerant routing: unmatched paths are treated as anchor sections (e.g., /#/services → scroll to #services)
@@ -17,6 +18,7 @@ function AppRouter() {
     <Router hook={useHashLocation}>
       <Switch>
         {/* Add explicit routes here, e.g.: <Route path="/login" component={LoginPage} /> */}
+        <Route path="/mutuals" component={Mutuals} />
         <Route path="/profile/:userId" component={Profile} />
         <Route path="/waiting-room/:groupId" component={WaitingRoom} />
         <Route path="/groups" component={Groups} />
