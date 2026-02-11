@@ -99,6 +99,19 @@ export default function Groups() {
         }
     };
 
+    const handleDelete = async (groupId: string) => {
+        if (!confirm("Are you sure you want to delete this group? This action cannot be undone.")) {
+            return;
+        }
+        try {
+            await api.delete(`/api/v1/groups/${groupId}`);
+            toast.success("Group deleted!");
+            fetchGroups();
+        } catch (error: any) {
+            toast.error(error.response?.data?.detail || "Failed to delete group");
+        }
+    };
+
     return (
         <div className="min-h-screen bg-background p-8 overflow-auto">
             <div className="max-w-6xl mx-auto space-y-8">
@@ -226,7 +239,23 @@ export default function Groups() {
                                     </CardContent>
                                     <CardFooter>
                                         {isMember ? (
-                                            <Button variant="destructive" className="w-full opacity-0 group-hover:opacity-100 transition-opacity" onClick={() => handleLeave(group.id)}>Leave Group</Button>
+                                            group.admin_id === DEMO_USER_ID ? (
+                                                <Button
+                                                    variant="destructive"
+                                                    className="w-full opacity-0 group-hover:opacity-100 transition-opacity font-bold uppercase tracking-widest"
+                                                    onClick={() => handleDelete(group.id)}
+                                                >
+                                                    Delete Group
+                                                </Button>
+                                            ) : (
+                                                <Button
+                                                    variant="destructive"
+                                                    className="w-full opacity-0 group-hover:opacity-100 transition-opacity"
+                                                    onClick={() => handleLeave(group.id)}
+                                                >
+                                                    Leave Group
+                                                </Button>
+                                            )
                                         ) : (
                                             <Button
                                                 className="w-full font-bold uppercase tracking-widest"

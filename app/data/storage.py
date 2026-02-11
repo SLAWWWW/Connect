@@ -58,3 +58,17 @@ def update_item(collection: str, item_id: str, updates: Dict[str, Any]) -> bool:
             return True
             
     return False
+
+def delete_item(collection: str, item_id: str) -> bool:
+    """Delete an item from a collection. Returns True if found."""
+    db = load_db()
+    items = db.get(collection, [])
+    
+    for i, item in enumerate(items):
+        if item.get("id") == item_id:
+            del items[i]
+            db[collection] = items
+            save_db(db)
+            return True
+            
+    return False

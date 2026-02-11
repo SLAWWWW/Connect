@@ -116,6 +116,27 @@ def leave_group(
     
     return group_data
 
+@router.delete("/{group_id}")
+def delete_group(
+    group_id: str,
+    x_user_id: str = Header(..., description="User ID of the admin deleting the group")
+):
+    """
+    Delete a group (admin only).
+    """
+    group_data = storage.get_item_by_id("groups", group_id)
+    if not group_data:
+        raise HTTPException(status_code=404, detail="Group not found")
+    
+    # Only admin can delete
+    if group_data.get("admin_id") != x_user_id:
+        raise HTTPException(status_code=403, detail="Only admin can delete the group")
+    
+    # Delete the group
+    storage.delete_item("groups", group_id)
+    
+    return {"message": "Group deleted successfully", "group_id": group_id}
+
 @router.get("/groups_not_full", response_model=List[Group])
 def read_groups_not_full(
     skip: int = 0,

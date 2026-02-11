@@ -28,36 +28,6 @@
     ],
     "groups": [
         {
-            "name": "a",
-            "description": "a",
-            "activity": [
-                "Sports"
-            ],
-            "location": "North",
-            "max_members": 10,
-            "age_group": "All Ages",
-            "id": "ea1078d6-b030-4908-959c-7b32da890ead",
-            "members": [
-                "community-compass-demo-user"
-            ],
-            "admin_id": "community-compass-demo-user"
-        },
-        {
-            "name": "abc",
-            "description": "a",
-            "activity": [
-                "Gaming"
-            ],
-            "location": "Central",
-            "max_members": 10,
-            "age_group": "All Ages",
-            "id": "ffc7e312-d22d-45cd-9b26-224a669d3c2e",
-            "members": [
-                "community-compass-demo-user"
-            ],
-            "admin_id": "community-compass-demo-user"
-        },
-        {
             "name": "hiking",
             "description": "-",
             "activity": [
